@@ -1,4 +1,4 @@
-# Web Duty Roster
+# Weekly Duty Roster with Web
 
 
 ## Requirements
