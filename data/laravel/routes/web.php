@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('api/user', function() {
+    // 認証済みのユーザーのみが入れる
+})->middleware('auth.basic');
+Auth::routes();

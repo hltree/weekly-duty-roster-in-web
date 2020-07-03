@@ -47,6 +47,16 @@ laravelの初期画面が表示されることを確認する
 
 5. [.env](./.env)の内容をLaravel内に反映させる
 
+6. very_basic_auth.phpファイルをbuildし、basic認証のパスをchangeする
+
+```
+$ cp ./data/laravel/config/very_basic_auth.sample.php ./data/laravel/config/very_basic_auth.php
+```
+
+```
+$ vi ./data/laravel/config/very_basic_auth.php
+```
+
 ## Settings
 
 ### ・Portを変更する
