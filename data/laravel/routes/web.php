@@ -18,7 +18,5 @@ Route::get('/', function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('api/user', function() {
-    // 認証済みのユーザーのみが入れる
-})->middleware('auth.basic');
+
 Auth::routes();

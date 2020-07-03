@@ -71,20 +71,28 @@
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
                     @endauth
                 </div>
             @endif
 
             <div class="content">
-                <div class="title m-b-md">{{ config('app.name', 'Laravel') }}</div>
+                <div class="title m-b-md">{{ config('app.name', 'Weekly Duty Roster') }}</div>
 
                 <div class="links">
-                    <p>Please log in from the navigation in the upper right.</p>
-                    <p>右上のナビゲーションからログインをしてください。</p>
+                    <p>
+                        Please log in from the navigation in the upper right.
+                        @if (Route::has('register'))
+                            <br />
+                            To register a new user, go to <a href="{{ route('register') }}">register page</a> and go through authentication.
+                        @endif
+                    </p>
+                    <p>
+                        右上のナビゲーションからログインをしてください。
+                        @if (Route::has('register'))
+                            <br />
+                            新規ユーザーを登録する場合は、<a href="{{ route('register') }}">register</a>にアクセスし、認証を通過してください。
+                        @endif
+                    </p>
                 </div>
             </div>
         </div>
