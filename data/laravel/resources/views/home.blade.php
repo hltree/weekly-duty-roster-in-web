@@ -25,7 +25,7 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">You can see the duty roster.</p>
-                    <a href="{{ route('view-duty-roster') }}" class="btn btn-primary">Go somewhere</a>
+                    <a href="{{ route('duty-roster/view') }}" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>

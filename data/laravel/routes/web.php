@@ -18,6 +18,6 @@ Route::get('/', function () {
 });
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/view-duty-roster', 'ViewDutyRosterController@index')->name('view-duty-roster');
+Route::get('/duty-roster/view', 'DutyRosterController@view')->name('duty-roster-view');
 
 Auth::routes();
