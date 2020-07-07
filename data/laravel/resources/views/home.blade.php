@@ -37,7 +37,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Special title treatment</h5>
                     <p class="card-text">You can change the setting of duty user.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <a href="{{ route('duty-roster/setting') }}" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>
