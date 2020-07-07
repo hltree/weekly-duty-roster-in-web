@@ -15,13 +15,12 @@ class DutyRosterController extends Controller
     public function view(Request $request)
     {
         $items = DutyRoster::all();
-        //return view('duty-roster.view', ['items' => $items]);
-        return view('duty-roster.view');
+        return view('duty-roster.view', ['items' => $items]);
+        //return view('duty-roster.view');
     }
 
     public function setting(Request $request)
     {
-        dd($request->name);
         return view('duty-roster.setting');
     }
 }
