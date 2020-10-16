@@ -1,5 +1,8 @@
 # Weekly Duty Roster with Web
 
+## Whats?
+
+This is an app that manages weekly shifts.
 
 ## Requirements
 
