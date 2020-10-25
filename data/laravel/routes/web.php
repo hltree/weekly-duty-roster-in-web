@@ -16,11 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/duty-roster/view', 'DutyRosterController@view')->name('duty-roster/view');
-
-Route::get('/duty-roster/setting', 'DutyRosterController@setting')->name('duty-roster/setting');
-Route::post('/duty-roster/setting', 'DutyRosterController@setting');
-
-Auth::routes();
