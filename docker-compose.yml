@@ -40,7 +40,7 @@ services:
       - .env
     environment:
       - PMA_ARBITARY=1
-      - PMA_HOST=mysql
+      - PMA_HOST=weekly_duty_roster_in_web_db
       - PMA_USER=${PHP_MY_ADMIN_USER}
       - PMA_PASSWORD=${PHP_MY_ADMIN_PASSWORD}
     links:

@@ -1,7 +1,9 @@
 # server file
 *.swp
 *.log
-.htaccess
+
+# setting file
+.env
 
 # docker
 docker/mysql
