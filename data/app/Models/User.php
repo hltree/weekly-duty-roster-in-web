@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin'
     ];
 
     /**
@@ -40,4 +41,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin(int $userId): bool
+    {
+        $takeOne = $this->where('id', $userId)->take(1);
+        return $takeOne->exists() && 1 === $takeOne->get()->toArray()[0]['is_admin'] ? true : false;
+    }
 }

@@ -11,9 +11,8 @@ services:
       - ./data:/var/www/html
     ports:
       - 80:80
-    links:
-      - weekly_duty_roster_in_web_phpmyadmin
-      - weekly_duty_roster_in_web_db
+    networks:
+      - weekly_duty_roster_in_web_network
   weekly_duty_roster_in_web_db:
     container_name: weekly_duty_roster_in_web_db
     image: mysql:5.7
@@ -33,6 +32,8 @@ services:
       - MYSQL_USER=${DB_USER}
       - MYSQL_PASSWORD=${DB_PASSWORD}
       - TZ='Asia/Tokyo'
+    networks:
+      - weekly_duty_roster_in_web_network
   weekly_duty_roster_in_web_phpmyadmin:
     container_name: weekly_duty_roster_in_web_phpmyadmin
     image: phpmyadmin/phpmyadmin
@@ -43,10 +44,12 @@ services:
       - PMA_HOST=weekly_duty_roster_in_web_db
       - PMA_USER=${PHP_MY_ADMIN_USER}
       - PMA_PASSWORD=${PHP_MY_ADMIN_PASSWORD}
-    links:
-      - weekly_duty_roster_in_web_db
     ports:
       - 8080:80
     volumes:
       - ./docker/phpmyadmin/upload.ini:/usr/local/etc/php/php.ini
       - ./docker/phpmyadmin/sessions:/sessions
+    networks:
+      - weekly_duty_roster_in_web_network
+networks:
+  weekly_duty_roster_in_web_network:

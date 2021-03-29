@@ -8,6 +8,9 @@ RUN apt-get update \
     && docker-php-ext-enable pdo_mysql mysqli \
     && a2enmod rewrite
 
+RUN su -c 'curl -sL https://deb.nodesource.com/setup_14.x | bash -' \
+    && apt-get install -y nodejs
+
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /composer
