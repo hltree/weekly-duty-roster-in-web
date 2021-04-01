@@ -89,7 +89,15 @@ class Calendar
 
             $currentChildIndex = floor($i / 7);
             $currentParentIndex = $i - 7 * $currentChildIndex;
-            $tableBody .= "<td>{$days[$currentParentIndex][$currentChildIndex]}</td>";
+            /**
+             * remodal用のhash href
+             */
+            $tableBody .= "<td><a href='#popup-$i'>{$days[$currentParentIndex][$currentChildIndex]}</a></td>";
+            /**
+             * ここにモーダル用の要素が入る予定
+             * モーダル内に選択できるスタッフ一覧を表示し、選択に応じてDBを更新する
+             */
+            $tableBody .= '<div>Remodal</div>';
 
             if (0 === $i % 6) $tableHeader .= '</tr>';
         }
