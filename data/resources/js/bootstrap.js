@@ -11,6 +11,9 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+    require('remodal');
+    require('remodal/dist/remodal-default-theme.css');
+    require('remodal/dist/remodal.css');
 } catch (e) {}
 
 /**

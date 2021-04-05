@@ -97,7 +97,13 @@ class Calendar
              * ここにモーダル用の要素が入る予定
              * モーダル内に選択できるスタッフ一覧を表示し、選択に応じてDBを更新する
              */
-            $tableBody .= '<div>Remodal</div>';
+            $tableBody .= <<<HTML
+                <div class='remodal' data-remodal-id='popup-$i'>
+                    <button data-remodal-action='close' class='remodal-close'></button>
+                    <button data-remodal-action='cancel' class='remodal-cancel'>Cancel</button>
+                    <button data-remodal-action='confirm' class='remodal-confirm'>OK</button>
+                </div>
+HTML;
 
             if (0 === $i % 6) $tableHeader .= '</tr>';
         }
