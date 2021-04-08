@@ -8,6 +8,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('home');
+        if (auth()->check()) {
+            return redirect()->route('dashboard');
+        }
+        return redirect()->route('login');
     }
 }

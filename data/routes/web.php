@@ -20,4 +20,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Auth::routes();
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware('auth.admin');
+
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+Route::post('dashboard', [DashboardController::class, 'store'])->name('schedule-active-change')->middleware('auth');

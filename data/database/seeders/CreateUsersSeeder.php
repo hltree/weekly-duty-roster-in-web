@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class CreateUsersSeeder extends Seeder
@@ -15,7 +16,9 @@ class CreateUsersSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('users')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         User::insert(
             [
                 'name' => 'Admin',
@@ -30,7 +33,8 @@ class CreateUsersSeeder extends Seeder
             $basicUsers[] = [
                 'name' => 'User' . $i,
                 'email' => 'user' . $i . '@web-duty-roster.com',
-                'password' => Hash::make('password')
+                'password' => Hash::make('password'),
+                'is_schedule_active' => 1
             ];
         }
 

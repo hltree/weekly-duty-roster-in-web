@@ -5,6 +5,9 @@
  */
 
 require('./bootstrap');
+require('sweetalert2/dist/sweetalert2.min.css');
+
+import Swal from 'sweetalert2';
 
 window.Vue = require('vue').default;
 
@@ -30,3 +33,41 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+/**
+ * @Route api.update_schedule
+ * update schedules from ajax
+ */
+$(function () {
+    const js_schedule_user_button = $('.js-scheduling-user');
+    if (0 < js_schedule_user_button.length) {
+        js_schedule_user_button.each(function () {
+            $(this).on('click', function () {
+                const _this = $(this);
+                $.ajax({
+                    url: '/api/update_schedule',
+                    method: 'post',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        active: _this.data('active'),
+                        date: _this.data('date'),
+                        userId: _this.data('user-id')
+                    }
+                }).then(function (response) {
+                    Swal.fire(response['message']);
+                    if (200 === response['status']) {
+                        if ('insert' === response['actionType']) {
+                            _this.removeClass('btn-success');
+                            _this.addClass('btn-warning');
+                        } else if ('delete' === response['actionType']) {
+                            _this.addClass('btn-success');
+                            _this.removeClass('btn-warning');
+                        }
+                    }
+                })
+            });
+        });
+    }
+})
