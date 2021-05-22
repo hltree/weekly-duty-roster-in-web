@@ -14,8 +14,9 @@ class UpdateScheduleController extends Controller
             $isActive = $request->get('active');
             $date = $request->get('date');
             $userId = $request->get('userId');
+            $userName = $request->get('userName');
 
-            if (empty($isActive) || empty($date) || empty($userId)) abort(500, 'Error!');
+            if (empty($isActive) || empty($date) || empty($userId) || empty($userName)) abort(500, 'Error!');
 
             $actionType = '';
 
@@ -29,24 +30,25 @@ class UpdateScheduleController extends Controller
                     $actionType = 'insert';
                 } else if ('true' === $isActive) {
                     $Schedule = new Schedule();
-                    if ($Schedule->exists()) $Schedule->delete();
+                    $Schedule->deleteDateUserRecord($date, $userId);
                     $actionType = 'delete';
                 }
 
                 DB::commit();
 
-                return $this->returnStatus(200, $actionType, '更新完了');
+                return $this->returnStatus(200, $actionType, $userName,'更新完了');
             } catch (\Exception $e) {
                 DB::rollBack();
             }
         }
     }
 
-    protected function returnStatus(int $responseStatus, string $actionType, string $message = ''): array
+    protected function returnStatus(int $responseStatus, string $actionType, string $userName, string $message = ''): array
     {
         return [
             'status' => $responseStatus,
             'actionType' => $actionType,
+            'userName' => $userName,
             'message' => $message
         ];
     }

@@ -86,18 +86,18 @@ class Calendar
         $html = "<table class='table table-bordered'>";
         $dateTextClassName = true === $User->isAdmin(auth()->id()) ? 'text-primary' : '';
 
-        $tableHeader = "<tr>";
+        $tableHeader = "<thead><tr>";
         foreach ($this->getWeeks() as $week) {
             $tableHeader .= "<th>$week</th>";
         }
-        $tableHeader .= "</tr>";
+        $tableHeader .= "</tr></thead>";
         $html .= $tableHeader;
 
         $days = $this->getDays();
         $weekLoopNumber = ceil(($this->firstKey + $this->getSumDays()) / 7);
         $maxDayNumber = $weekLoopNumber * 7;
         $modalItems = "";
-        $tableBody = "";
+        $tableBody = "<tbody>";
         for ($i = 0; $i < $maxDayNumber; $i++) {
             if (0 === $i % 7) $tableBody .= "<tr>";
 
@@ -110,12 +110,12 @@ class Calendar
                 $dateDataFirstKey = key($dateData);
 
                 $choicesUsers = $Schedule->getUsersIdToArrayByDate($dateData[$dateDataFirstKey]);
-                $tableCelBody = "<span class='{$dateTextClassName}'>{$dateData[$dateDataFirstKey]}</span><span class='row pl-3 pr-3 pt-2'>";
+                $tableCelBody = "<span class='{$dateTextClassName}'>{$dateData[$dateDataFirstKey]}</span><span class='row pl-3 pr-3 pt-2 js-scheduling-activeUsers-{$i}'>";
                 foreach ($choicesUsers as $choiceUser) {
                     $userData = $User->getUserByOne($choiceUser);
                     if (empty($userData)) continue;
 
-                    $tableCelBody .= "<span class='btn btn-success' style='cursor: auto'>{$userData->name}</span>";
+                    $tableCelBody .= "<span class='btn btn-success calendar-table-cel-user' data-user-id='{$userData->id}'>{$userData->name}</span>";
                 }
                 $tableCelBody .= "</span>";
 
@@ -133,7 +133,7 @@ class Calendar
                         $btnDataActiveName = empty($record) ? 'false' : 'true';
                         $btnColorClassName = empty($record) ? 'btn-success' : 'btn-warning';
 
-                        $modalItems .= "<div class='pl-1 pr-1 mt-3'><div class='btn $btnColorClassName js-scheduling-user' data-user-id='{$user->id}' data-date='{$dateDataFirstKey}' data-active='{$btnDataActiveName}'>{$user->name}</div></div>";
+                        $modalItems .= "<div class='pl-1 pr-1 mt-3'><div class='btn $btnColorClassName js-scheduling-user' data-user-id='{$user->id}' data-user-name='{$user->name}' data-date='{$dateDataFirstKey}' data-active='{$btnDataActiveName}' data-schedule-id='{$i}'>{$user->name}</div></div>";
                     }
                     $modalItems .= "</div>";
                     $modalItems .= "<button data-remodal-action='cancel' class='remodal-cancel mt-5'>Cancel</button></div>";
@@ -144,9 +144,8 @@ class Calendar
             }
 
             $tableBody .= "<td class='calendar-table-cel-body'>$tableCel</td>";
-
-            if (0 === $i % 6) $tableHeader .= "</tr>";
         }
+        $tableBody .= '</tbody>';
         $html .= $tableBody;
 
         $html .= "</table>";

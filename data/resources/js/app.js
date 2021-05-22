@@ -44,6 +44,9 @@ $(function () {
         js_schedule_user_button.each(function () {
             $(this).on('click', function () {
                 const _this = $(this);
+                const scheduling_users_cel = $('.js-scheduling-activeUsers-' + _this.data('schedule-id'));
+                const user_id = _this.data('user-id');
+                const user_name = _this.data('user-name');
                 $.ajax({
                     url: '/api/update_schedule',
                     method: 'post',
@@ -53,7 +56,8 @@ $(function () {
                     data: {
                         active: _this.data('active'),
                         date: _this.data('date'),
-                        userId: _this.data('user-id')
+                        userId: user_id,
+                        userName: user_name
                     }
                 }).then(function (response) {
                     Swal.fire(response['message']);
@@ -61,9 +65,19 @@ $(function () {
                         if ('insert' === response['actionType']) {
                             _this.removeClass('btn-success');
                             _this.addClass('btn-warning');
+
+                            _this.data('active', 'true');
+
+                            scheduling_users_cel.append('<span class="btn btn-success calendar-table-cel-user" data-user-id="' + user_id + '">' + user_name + '</span>');
                         } else if ('delete' === response['actionType']) {
                             _this.addClass('btn-success');
                             _this.removeClass('btn-warning');
+
+                            _this.data('active', 'false');
+
+                            const remove_element = scheduling_users_cel.find('.calendar-table-cel-user[data-user-id="' + user_id + '"]');
+
+                            $(remove_element).remove();
                         }
                     }
                 })

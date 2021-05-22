@@ -36,6 +36,11 @@ class Schedule extends Model
         return $all->exists() ? $all->get()->groupBy('user_id')->keys()->toArray() : [];
     }
 
+    public function deleteDateUserRecord(string $date, int $userId)
+    {
+        $this->where('date', $date)->where('user_id', $userId)->delete();
+    }
+
     public function deleteDeActiveUserRecord(int $userId)
     {
         $this->where('user_id', $userId)->delete();
