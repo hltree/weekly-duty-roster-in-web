@@ -59,6 +59,13 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
+                                    @php
+                                    $User = new \App\Models\User();
+                                    $isAdmin = $User->isAdmin(Auth::user()->id);
+                                    @endphp
+                                    @if ($isAdmin)
+                                        <a class="dropdown-item" href="{{ route('auto_scheduling') }}">{{ __('Auto Scheduling') }}</a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

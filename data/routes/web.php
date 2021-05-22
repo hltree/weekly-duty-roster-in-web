@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AutoSchedulingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,5 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->mi
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 Route::post('dashboard', [DashboardController::class, 'store'])->name('schedule-active-change')->middleware('auth');
+
+Route::get('auto_scheduling', [AutoSchedulingController::class, 'index'])->name('auto_scheduling')->middleware('auth.admin');
