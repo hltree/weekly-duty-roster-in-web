@@ -1,8 +1,8 @@
 # Weekly Duty Roster with Web
 
-## Whats?
+## これ何のアプリ？
 
-This is an app that manages weekly shifts.
+当番表を簡単に作成できるアプリです
 
 ## Requirements
 
@@ -18,47 +18,53 @@ $ cp .env-sample .env
 
 2. dockerを起動する
 ```
-起動
+起動するとき
+（初回）
+$ docker-compose up -d --build
+（以降）
 $ docker-compose up -d
-（初回はビルドが入るため、時間がかかります）
 
-終了
+終了するとき
 $ docker-compose down
 ```
 
-3. Laravelをインストールする
-
-bashでdocker環境に入る
+3. phpコンテナにアクセスし、ライブラリ一式をダウンロード
 ```
-$ docker exec -it php bash
-```
-
-Laravelをインストールする
-```
-if php >= 7.3.0
-$ laravel new laravel
-
-else
-$ composer create-project laravel/laravel laravel
+（コンテナに入る）
+$ docker exec -it ${コンテナ名} bash
+（ライブラリをダウンロードする）
+$ composer install
+$ npm i && npm run prod
 ```
 
-[data](./data)配下にLaravelがインストールされていることを確認する
-
-4. localhostに接続する
-
-laravelの初期画面が表示されることを確認する
-
-5. [.env](./.env)の内容をLaravel内に反映させる
-
-6. very_basic_auth.phpファイルをbuildし、basic認証のパスをchangeする
-
+4. Laravelのenvファイルを設定する
 ```
-$ cp ./data/laravel/config/very_basic_auth.sample.php ./data/laravel/config/very_basic_auth.php
+$ cp .env.example .env
+$ vi .env （viでなくても編集できれば良いです）
+
+設定が完了したら
+$ php artisan config:clear
+
+$ php artisan tinker
+>> DB::select('select 1');
+!! ここでエラーが出た場合、envファイルに設定したDB情報が正しいか再度確認してください !!
 ```
 
+5. DBにテーブルを作成する
 ```
-$ vi ./data/laravel/config/very_basic_auth.php
+$ php artisan migrate
 ```
+6. テストユーザーを作成する
+```
+$ php artisan db:seed
+```
+
+`data/database/seeders/CreateUsersSeeder.php` にテストユーザーの情報が記載されています。
+（本環境では利用しないでください）
+
+7. localhostにアクセスしてログインできるか確認する
+
+追記予定
 
 ## Settings
 
